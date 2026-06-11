@@ -1,0 +1,15 @@
+services:
+  frontend:
+    build: .
+    image: dashboard
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "5001:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - frontend
+    restart: unless-stopped
